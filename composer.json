@@ -1,0 +1,17 @@
+{
+    "name": "jakubboucek/composer-vendor-checker",
+    "description": "Package for your app – it allows your app to check himself has consistent vendor dir (direct API, no CLI)",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jakub Bouček",
+            "email": "pan@jakubboucek.cz"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "JakubBoucek\\ComposerVendorChecker\\": "src/"
+        }
+    }
+}
