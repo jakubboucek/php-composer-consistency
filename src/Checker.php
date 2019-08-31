@@ -158,7 +158,7 @@ class Checker
     {
         $content = @file_get_contents($file); // @ is escalated to exception
         if ($content === false) {
-            $lastError = preg_replace('#^\w+\(.*?\): #', '', error_get_last()['message']);
+            $lastError = preg_replace('#^\w+\(.*?\): #', '', (string)error_get_last()['message']);
             throw new RuntimeException("Unable to read file '$file'. " . $lastError);
         }
         return $content;
