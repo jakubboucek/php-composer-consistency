@@ -13,6 +13,9 @@ use RuntimeException;
  */
 class Checker
 {
+    protected const FILE_REQS = 'composer.lock';
+    protected const FILE_INSTALLED = 'installed.json';
+
     /**
      * @var string
      */
@@ -21,6 +24,10 @@ class Checker
      * @var string
      */
     private $vendorDir;
+    /**
+     * @var bool Is strictly required `composer.lock` files?
+     */
+    private $strictReqs = true;
 
 
     /**
@@ -71,17 +78,45 @@ class Checker
      */
     public function isReqsValid(): bool
     {
-        $definitions = $this->loadReqs();
-        $instalations = $this->loadInstalled();
+        try {
+            $definitions = $this->loadReqs();
+            $instalations = $this->loadInstalled();
 
-        $diff = array_diff_assoc($definitions, $instalations);
+            $diff = array_diff_assoc($definitions, $instalations);
 
-        return count($diff) === 0;
+            return count($diff) === 0;
+        } catch (FileReadException $e) {
+            if($this->strictReqs !== true && $e->getRequiredfile() === self::FILE_REQS) {
+                // Ignore missing `composer.lock` file - not deployed to production?
+                return true;
+            }
+            throw $e;
+        }
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isStrictReqs(): bool
+    {
+        return $this->strictReqs;
+    }
+
+    /**
+     * @param bool $strictReqs
+     * @return Checker
+     */
+    public function setStrictReqs(bool $strictReqs): self
+    {
+        $this->strictReqs = $strictReqs;
+        return $this;
     }
 
 
     /**
      * @return array
+     * @throws FileReadException
      * @throws RuntimeException
      */
     protected function loadReqs(): array
@@ -100,16 +135,18 @@ class Checker
 
     /**
      * @return array
+     * @throws FileReadException
      * @throws RuntimeException
      */
     protected function loadReqsFile(): array
     {
-        return $this->readJsonFile($this->rootDir . '/composer.lock');
+        return $this->readJsonFile($this->rootDir . '/' . self::FILE_REQS);
     }
 
 
     /**
      * @return array
+     * @throws FileReadException
      * @throws RuntimeException
      */
     protected function loadInstalled(): array
@@ -128,17 +165,19 @@ class Checker
 
     /**
      * @return array
+     * @throws FileReadException
      * @throws RuntimeException
      */
     protected function loadInstalledFile(): array
     {
-        return $this->readJsonFile($this->vendorDir . '/composer/installed.json');
+        return $this->readJsonFile($this->vendorDir . '/composer/' . self::FILE_INSTALLED);
     }
 
 
     /**
      * @param string $filename
      * @return array
+     * @throws FileReadException
      * @throws RuntimeException
      */
     protected function readJsonFile(string $filename): array
@@ -151,7 +190,7 @@ class Checker
     /**
      * @param string $file
      * @return string
-     * @throws RuntimeException
+     * @throws FileReadException
      * @link https://doc.nette.org/en/3.0/filesystem
      */
     protected function readFile(string $file): string
@@ -159,7 +198,8 @@ class Checker
         $content = @file_get_contents($file); // @ is escalated to exception
         if ($content === false) {
             $lastError = preg_replace('#^\w+\(.*?\): #', '', (string)error_get_last()['message']);
-            throw new RuntimeException("Unable to read file '$file'. " . $lastError);
+            $requiredFile = basename($file);
+            throw new FileReadException($requiredFile, "Unable to read file '$file'. " . $lastError);
         }
         return $content;
     }
