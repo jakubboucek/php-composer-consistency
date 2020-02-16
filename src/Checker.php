@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace JakubBoucek\ComposerConsistency;
@@ -77,11 +78,11 @@ class Checker
             $definitions = $this->loadReqs();
             $instalations = $this->loadInstalled();
 
-            $diff = array_diff_assoc($definitions, $instalations);
+            $diff = $this->compareReqs($definitions, $instalations);
 
             return count($diff) === 0;
         } catch (FileReadException $e) {
-            if($this->strictReqs !== true && $e->getRequiredfile() === self::FILE_REQS) {
+            if ($this->strictReqs !== true && $e->getRequiredfile() === self::FILE_REQS) {
                 // Ignore missing `composer.lock` file - not deployed to production?
                 return true;
             }
@@ -209,5 +210,35 @@ class Checker
             throw new LogicException("Expected Json-serialized Array, but $type instead.");
         }
         return $value;
+    }
+
+    /**
+     * @param array $required
+     * @param array $installed
+     * @return array
+     */
+    protected function compareReqs(array $required, array $installed): array
+    {
+        $diffs = array_map(
+            static function ($version) {
+                return ['required' => $version, 'installed' => null];
+            },
+            $required
+        );
+
+        foreach ($installed as $name => $version) {
+            if (($diffs[$name]['required'] ?? null) === $version) {
+                // Version matches, remove diff
+                unset($diffs[$name]);
+
+            }else {
+                $diffs[$name] = [
+                    'required' => $diffs[$name]['required'] ?? null,
+                    'installed' => $version
+                ];
+            }
+        }
+
+        return $diffs;
     }
 }
