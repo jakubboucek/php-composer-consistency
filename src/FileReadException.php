@@ -13,7 +13,7 @@ class FileReadException extends RuntimeException
      */
     private $requiredfile;
 
-    public function __construct(string $requiredfile, $message = '', $code = 0, Throwable $previous = null)
+    public function __construct(string $requiredfile, string $message = '', int $code = 0, ?Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
         $this->requiredfile = $requiredfile;

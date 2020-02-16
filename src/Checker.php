@@ -15,17 +15,13 @@ class Checker
     protected const FILE_REQS = 'composer.lock';
     protected const FILE_INSTALLED = 'installed.json';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $rootDir;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     private $vendorDir;
-    /**
-     * @var bool Is strictly required `composer.lock` files?
-     */
+
+    /** @var bool Is strictly required `composer.lock` files? */
     private $strictReqs = true;
 
 
