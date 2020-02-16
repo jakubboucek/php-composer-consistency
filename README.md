@@ -31,6 +31,21 @@ When `/vendor` is not consistent with `composer.json`, checker throws an Excepti
 
 ![Exception from Checker](https://cdn.jakub-boucek.cz/screenshot/190703-jptvw.png)
 
+## Modes
+
+### Strict/Lax mode
+Nehlásí chybu, pokud nenajde soubory
+
+POPZOR? výchozéí stan není striktní - vysvětlit v readme
+
+### Silent mode
+Vyhodí pouze chybu E_USER_ERROR, ne vyjímku
+
+```php
+Composer::validateConsistency($rootDir, $vendorDir, true, false);
+(new Composer($rootDir))->strict(false)->validate($debugMode, E_USER_ERROR);
+```
+
 ### Warning
 Because you install Checker as dev-dependency, you should be very careful to hard-linking dependency
 insinde your App. Is highly recommended to call validation only on development stage, not on production:
