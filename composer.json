@@ -1,6 +1,6 @@
 {
-    "description": "Package for your app – it allows your app to check himself has consistent vendor dir (direct API, no CLI)",
     "name": "jakubboucek/composer-consistency",
+    "description": "Checks if the vendor/ directory is consistent with project's composer.lock",
     "type": "library",
     "license": "MIT",
     "authors": [
