@@ -10,7 +10,7 @@ install:
   - travis_retry composer install --no-progress --prefer-dist
 
 script:
-  - vendor/bin/phpstan analyze --level max -c phpstan.neon src --no-interaction --no-progress
+  - vendor/bin/phpstan analyze --level 5 -c phpstan.neon src --no-interaction --no-progress
 
 sudo: false
 
