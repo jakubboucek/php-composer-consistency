@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace JakubBoucek\ComposerVendorChecker;
+namespace JakubBoucek\ComposerConsistency;
 
 use RuntimeException;
 use Throwable;

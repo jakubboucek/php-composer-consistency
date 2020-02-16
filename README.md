@@ -22,7 +22,7 @@ composer require --dev jakubboucek/composer-vendor-checker
 In your app just call `validateReqs()` method:
 ```php
 <?php
-use JakubBoucek\ComposerVendorChecker\Checker;
+use JakubBoucek\ComposerConsistency\Checker;
 
 Checker::validateReqs(__DIR__);
 ```

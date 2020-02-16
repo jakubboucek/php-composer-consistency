@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace JakubBoucek\ComposerVendorChecker;
+namespace JakubBoucek\ComposerConsistency;
 
 use RuntimeException;
 
@@ -9,7 +9,6 @@ use RuntimeException;
  * Class Checker
  * Comparing packages promised by `composer.lock` in versioned part of your project and actually installed packages
  * in `/vendor` directory.
- * @package JakubBoucek\ComposerVendorChecker
  */
 class Checker
 {

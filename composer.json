@@ -1,6 +1,6 @@
 {
-    "name": "jakubboucek/composer-vendor-checker",
     "description": "Package for your app – it allows your app to check himself has consistent vendor dir (direct API, no CLI)",
+    "name": "jakubboucek/composer-consistency",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -15,11 +15,14 @@
     },
     "autoload": {
         "psr-4": {
-            "JakubBoucek\\ComposerVendorChecker\\": "src/"
+            "JakubBoucek\\ComposerConsistency\\": "src/"
         }
     },
     "require-dev": {
         "phpstan/phpstan": "^0.11"
+    },
+    "replace": {
+        "jakubboucek/composer-vendor-checker": "self.version"
     },
     "extra": {
         "branch-alias": {
