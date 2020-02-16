@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace JakubBoucek\ComposerConsistency;
 
-use RuntimeException;
+use LogicException;
 use Throwable;
 
-class FileReadException extends RuntimeException
+class FileReadException extends LogicException
 {
     /**
      * @var string
