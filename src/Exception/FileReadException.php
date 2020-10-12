@@ -9,9 +9,7 @@ use Throwable;
 
 class FileReadException extends LogicException
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $requiredfile;
 
     public function __construct(string $requiredfile, string $message = '', int $code = 0, ?Throwable $previous = null)
@@ -20,9 +18,6 @@ class FileReadException extends LogicException
         $this->requiredfile = $requiredfile;
     }
 
-    /**
-     * @return string
-     */
     public function getRequiredfile(): string
     {
         return $this->requiredfile;
