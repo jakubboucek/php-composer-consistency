@@ -19,8 +19,15 @@
         }
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.12.10",
-        "nette/tester": "^2.3"
+        "phpstan/phpstan": "^0.12.48",
+        "nette/tester": "^2.3",
+        "symplify/easy-coding-standard": "^8.3"
+    },
+    "scripts": {
+        "phpstan": "phpstan analyze src --level 6",
+        "ecs": "ecs check src --set psr12",
+        "ecs-fix": "ecs check src --set psr12 --fix",
+        "tests": "tester tests"
     },
     "replace": {
         "jakubboucek/composer-vendor-checker": "self.version"

@@ -1,7 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-namespace JakubBoucek\ComposerConsistency;
+namespace JakubBoucek\ComposerConsistency\Exception;
 
 use LogicException;
 use Throwable;

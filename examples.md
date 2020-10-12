@@ -1,36 +1,3 @@
-# Vendor checker for PHP Composer
-Package for your app – it allows your App to check himself has consistent vendor dir (direct API, no CLI).
-
-`composer.json` <== (synchronized) ==> `/vendor`
-
-## About package
-For small teams can be difficult to cooperate and keep `/vendor` directory synchronized with requirements
-in `composer.json`. Your colleagues can be a junior or can be not accustomed to right use the Composer.
-
-You can force refresh Composer via git-hooks, but it requires careful preparation on each developer station.  
-You can push all `/vendor` into your repo, but it's very very dirty way. Don't do it!
-
-Or… just add this package to you project. It checks if you `/vendor` is consistent with project and can
-notify you and your colleagues to forgotten refresh.
-
-## Usage
-Add this package to project as dev-dependency:
-```shell
-composer require --dev jakubboucek/composer-consistency-checker
-```
-
-In your app just call `validate()` method:
-```php
-<?php
-use JakubBoucek\ComposerConsistency\ComposerConsistency;
-
-ComposerConsistency::rootDir(__DIR__)->validate();
-```
-
-When `/vendor` is not consistent with `composer.json`, checker throws an Exception.
-
-![Exception from Checker](https://cdn.jakub-boucek.cz/screenshot/190703-jptvw.png)
-
 ## Usage
 
 ```php

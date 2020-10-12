@@ -1,6 +1,6 @@
 <?php
 
-use JakubBoucek\ComposerConsistency\Checker;
+use JakubBoucek\ComposerConsistency\ComposerConsistency;
 use Tester\Assert;
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -8,10 +8,10 @@ require __DIR__ . '/../vendor/autoload.php';
 Tester\Environment::setup();
 
 // protected methos -> public method
-$method = (new ReflectionClass(Checker::class))->getMethod('compareReqs');
+$method = (new ReflectionClass(ComposerConsistency::class))->getMethod('compareReqs');
 $method->setAccessible(true);
 
-$o = new Checker(__DIR__ . '/..');
+$o = new ComposerConsistency(__DIR__ . '/..');
 
 Assert::same(
     [],
