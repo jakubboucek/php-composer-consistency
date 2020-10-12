@@ -16,7 +16,7 @@ notify you and your colleagues to forgotten refresh.
 ## Usage
 Add this package to project as dev-dependency:
 ```shell
-composer require --dev jakubboucek/composer-consistency-checker
+composer require --dev jakubboucek/composer-consistency
 ```
 
 In your app just call `validate()` method:
