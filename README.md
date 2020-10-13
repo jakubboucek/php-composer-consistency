@@ -1,19 +1,19 @@
-# PHP Composer consitency checker 
-Checks if the `vendor/` directory is consistent with project's `composer.lock` (direct API, no CLI).
+# PHP Composer consistency checker 
+Checks if the `/vendor` directory is consistent with the project's `/composer.lock` (direct API, no CLI).
 
-`composer.json` <== (synchronized) ==> `/vendor`
+`/composer.json` <== (synchronized) ==> `/vendor`
 
 ![Code Analysis](https://github.com/jakubboucek/php-composer-consistency/workflows/Code%20Analysis/badge.svg)
 
 ## About
 For small teams can be difficult to cooperate and keep `/vendor` directory synchronized with requirements
-in `composer.json`. Your colleagues can be a junior or can be not accustomed to right use the Composer and often forgot 
-to call `composer install` before running the App after update code from remote.
+in `/composer.json`. Your colleagues can be a junior or can be not accustomed to the right of use the Composer and
+often forgot to call `composer install` before running the App after update code from remote.
 
 You can force refresh Composer via git-hooks, but it requires careful preparation on each developer station.  
-In other way you can push whole `/vendor` into your repo, but it's very very dirty way. Don't do it!
+In another way, you can push the whole `/vendor` into your repo, but it's a very very dirty way. Don't do it!
 
-Or… just add this package to you project. It checks if you `/vendor` is consistent with project and can
+Or… just add this package to you project. It checks if your `/vendor` is consistent with the project and can
 notify you and your colleagues to forgotten refresh it.
 
 ## Usage
@@ -27,7 +27,7 @@ In your app just call `validate()` method:
 ComposerConsistency::rootDir(__DIR__)->validate();
 ```
 
-When `/vendor` directory is not consistent with `composer.json`, checker throws an Exception.
+When `/vendor` directory is not consistent with `/composer.json`, checker throws an Exception.
 
 ![Exception from Checker](https://cdn.jakub-boucek.cz/screenshot/190703-jptvw.png)
 
@@ -41,11 +41,11 @@ ComposerConsistency::rootDir(__DIR__)
 ```
 
 ### Directories
-- **Root dir** - directory which contains `composer.json`, rspt. `composer.lock` file,
-usually root directory od project.
-- **Vendor dir** - directory which contains Composer's `autoload.php` file.
+- **Root directory** - directory which contains `/composer.json`, rspt. `/composer.lock` file, usually the root directory
+of the project.
+- **Vendor directory** - directory which contains Composer's `autoload.php` file.
 
-By default, checker is assumes Verdor dir at `vendor/` from root dir, you can change by method `vendorDir()`.
+By default, the checker is assuming Vendor dir at `/vendor` from root directory, you can change by method `vendorDir()`.
 
 ```php
 ComposerConsistency::rootDir(__DIR__)
@@ -54,7 +54,7 @@ ComposerConsistency::rootDir(__DIR__)
 ```
 
 ### Error severity
-When checker detects incosistence, it throws `ComposerInconsitencyException`. 
+When the checker detects any inconsistency, it throws `ComposerInconsitencyException`. 
 
 You can change exception throwing to emit user error by method `errorMode($severity)` where `$severity` is Severity of
 emitted error, default is `E_USER_ERROR`, you can change it to any of `E_USER` family severity
@@ -74,7 +74,7 @@ ComposerConsistency::rootDir(__DIR__)
 ```
 
 ### Strict mode
-In strict mode Checker throws Exception when is unable to read Composer's files used to
+In strict mode, the checker throws Exception when is unable to read Composer's files used to
 compute vendor consistency. Default value: `off`. 
 
 Turn on Strict mode:
@@ -84,18 +84,18 @@ ComposerConsistency::rootDir(__DIR__)
     ->validate();
 ```
 
-Scrict mode is by default disabled, because: 
-- it can break production if you ignore some files (like `composer.lock`) during deploy - 
-that's false positive,
-- is not important to guard these files, for example when is missing whole `vendor/` directory, 
+Strict mode is by default disabled, because: 
+- it can break production if you ignore some files (like `/composer.lock`) during deploy - 
+that's a false positive,
+- is not important to guard these files, for example when is missing the whole `/vendor` directory, 
 is unable to load this package too,
-- main purpose of package is watching to subtle nuances in packages consistency, not fatals
-in Composer's file system.
+- the main purpose of the package is watching to subtle nuances in packages consistency, not fatal in the Composer's
+file system.
 
 ### Cache
-Checking `/vendor` consistency on every request consume unnecessarily huge CPU power. Cache is storing last success
-validation result. It does not more check consistency until these files keep same content. It requires a path to
-temporary directory for saving necessary files. Default value: `off`.
+Checking `/vendor` consistency on every request consumes unnecessarily huge CPU power. The cache is storing the last
+success validation result. It does not more check consistency until these files keep the same content. It requires
+a path to a temporary directory for saving necessary files. Default value: `off`.
 
 ```php
 ComposerConsistency::rootDir(__DIR__)
@@ -104,9 +104,9 @@ ComposerConsistency::rootDir(__DIR__)
 ```
 
 ### Froze mode
-Checking vendor consistency on every request consume unnecessarily huge CPU power. Froze mode is usable when you
-guarantee the deploy process to production is always purge the temp directory. It requires a path to temporary directory
-for saving necessary files. Recommended in production environment. Default value: `off`.
+Checking `/vendor` consistency on every request consumes unnecessarily huge CPU power. Froze mode is usable when you
+guarantee the deploy process to production is always purge the temp directory. It requires a path to a temporary
+directory for saving necessary files. Recommended in the production environment. Default value: `off`.
 
 ```php
 ComposerConsistency::rootDir(__DIR__)
@@ -114,5 +114,6 @@ ComposerConsistency::rootDir(__DIR__)
     ->validate();
 ```
 
-In Froze mode is vendor consistenty checked only once, then is state saved to temp directory and
-no more checks are performed until is temp directory purged. Difference 
+In Froze mode is vendor consistency checked only once, then is state saved to the temp directory and no more checks are
+performed until is temp directory purged. The difference between `cache` and `froze` behavior is `cache` mode is
+checking files if is not modified and `froze` does don't do it.
