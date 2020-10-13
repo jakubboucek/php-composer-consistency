@@ -44,7 +44,9 @@ jobs:
           echo "::set-output name=dir::$(composer config cache-files-dir)"
       - uses: actions/cache@v2
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
+          path: |
+            ${{ steps.composer-cache.outputs.dir }}
+            **/composer.lock
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
           restore-keys: |
             ${{ runner.os }}-composer-

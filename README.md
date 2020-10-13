@@ -3,6 +3,8 @@ Checks if the `vendor/` directory is consistent with project's `composer.lock` (
 
 `composer.json` <== (synchronized) ==> `/vendor`
 
+![Code Analysis](https://github.com/jakubboucek/php-composer-consistency/workflows/Code%20Analysis/badge.svg)
+
 ## About
 For small teams can be difficult to cooperate and keep `/vendor` directory synchronized with requirements
 in `composer.json`. Your colleagues can be a junior or can be not accustomed to right use the Composer and often forgot 
