@@ -1,5 +1,5 @@
 # PHP Composer consitency checker 
-Package for your App – it allows check himself has consistent Vendor dir with requirements.
+Checks if the `vendor/` directory is consistent with project's `composer.lock` (direct API, no CLI).
 
 `composer.json` <== (synchronized) ==> `/vendor`
 

@@ -1,6 +1,6 @@
 {
     "name": "jakubboucek/composer-consistency",
-    "description": "Checks if the vendor/ directory is consistent with project's composer.lock",
+    "description": "Checks if the vendor/ directory is consistent with project's composer.lock (direct API, no CLI)",
     "type": "library",
     "license": "MIT",
     "authors": [
