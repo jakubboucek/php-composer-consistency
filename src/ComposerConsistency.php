@@ -153,7 +153,7 @@ class ComposerConsistency
             $packages[$package['name']] = $package['version'];
         }
 
-        $packagesDev = [];
+        $packagesDev = $packages;
 
         foreach ($data['packages-dev'] as $package) {
             $packagesDev[$package['name']] = $package['version'];
