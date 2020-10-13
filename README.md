@@ -8,7 +8,7 @@ For small teams can be difficult to cooperate and keep `/vendor` directory synch
 in `composer.json`. Your colleagues can be a junior or can be not accustomed to right use the Composer.
 
 You can force refresh Composer via git-hooks, but it requires careful preparation on each developer station.  
-You can push all `/vendor` into your repo, but it's very very dirty way. Don't do it!
+In other way you can push all `/vendor` into your repo, but it's very very dirty way. Don't do it!
 
 Or… just add this package to you project. It checks if you `/vendor` is consistent with project and can
 notify you and your colleagues to forgotten refresh.
@@ -21,9 +21,6 @@ composer require --dev jakubboucek/composer-consistency
 
 In your app just call `validate()` method:
 ```php
-<?php
-use JakubBoucek\ComposerConsistency\ComposerConsistency;
-
 ComposerConsistency::rootDir(__DIR__)->validate();
 ```
 
@@ -36,7 +33,7 @@ When `/vendor` is not consistent with `composer.json`, checker throws an Excepti
 ```php
 use JakubBoucek\ComposerConsistency\ComposerConsistency;
 
-\JakubBoucek\ComposerConsistency\ComposerConsistency::rootDir(__DIR__)
+ComposerConsistency::rootDir(__DIR__)
     ->validate();
 ```
 
@@ -48,7 +45,7 @@ usually root directory od project.
 By default checker is assumes Verdor dir at `vendor/` from root dir, you can change by method `vendorDir()`.
 
 ```php
-\JakubBoucek\ComposerConsistency\ComposerConsistency::rootDir(__DIR__)
+ComposerConsistency::rootDir(__DIR__)
     ->vendorDir(__DIR__ . '/../vendor')
     ->validate();
 ```
@@ -61,7 +58,7 @@ emitted error, default is `E_USER_ERROR`, you can change it to any of `E_USER` f
 ([read more](https://www.php.net/manual/en/function.trigger-error.php#refsect1-function.trigger-error-parameters)).
 
 ```php
-\JakubBoucek\ComposerConsistency\ComposerConsistency::rootDir(__DIR__)
+ComposerConsistency::rootDir(__DIR__)
     ->errorMode(E_USER_WARNING)
     ->validate();
 ```
@@ -69,7 +66,7 @@ emitted error, default is `E_USER_ERROR`, you can change it to any of `E_USER` f
 Also you can disable checking by `errorMode(false)` – that's cause to completelly disable checking.
 
 ```php
-\JakubBoucek\ComposerConsistency\ComposerConsistency::rootDir(__DIR__)
+ComposerConsistency::rootDir(__DIR__)
     ->errorMode(false)
     ->validate();
 ```
@@ -80,7 +77,7 @@ compute vendor consistency. Default value: `off`.
 
 Turn on Strict mode:
 ```php
-\JakubBoucek\ComposerConsistency\ComposerConsistency::rootDir(__DIR__)
+ComposerConsistency::rootDir(__DIR__)
     ->strict()
     ->validate();
 ```
@@ -96,23 +93,25 @@ in Composer's file system.
 ### Cache
 Checking vendor consistency on every request consume unnecessarily huge CPU power. Ceche is store last success check
 only check is composer files stay without change. It does not check consincy of packages until these files keep same
-content. Default value: off.
+content. Default value: `off`.
 
 ```php
-\JakubBoucek\ComposerConsistency\ComposerConsistency::rootDir(__DIR__)
+ComposerConsistency::rootDir(__DIR__)
     ->cache(__DIR__ . '/temp')
     ->validate();
 ```
 
 ### Froze mode
 Checking vendor consistency on every request consume unnecessarily huge CPU power. Froze mode is usable when you
-guarantee the deploy process to production is always purge the temp directory. Default value: off.
+guarantee the deploy process to production is always purge the temp directory. It requires a path to temporary directory
+for saving necessary files. Default value: `off`.
 
 ```php
-\JakubBoucek\ComposerConsistency\ComposerConsistency::rootDir(__DIR__)
+ComposerConsistency::rootDir(__DIR__)
     ->froze(__DIR__ . '/temp')
     ->validate();
 ```
 
 In Froze mode is vendor consistenty checked only once, then is state saved to temp directory and
-no more checks are performed until is temp directory purged.
+no more checks are performed until is temp directory purged. It requires a path to temporary directory
+for saving necessary files. Default value: `off`.

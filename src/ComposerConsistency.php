@@ -104,7 +104,7 @@ class ComposerConsistency
             $this->cache->invalidate($this->getFileNames());
         }
 
-        $error = 'Composer has no consistent vendor directory with project requirements, call `composer install`';
+        $error = "Composer has no consistent 'vendor/' directory with project requirements, call `composer install`";
         if (in_array($this->errorMode, self::ALLOWED_ERROR_SEVERITY, true)) {
             trigger_error($error, $this->errorMode);
         } else {
