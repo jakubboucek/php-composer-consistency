@@ -29,7 +29,7 @@ ComposerConsistency::rootDir(__DIR__)->validate();
 
 When `/vendor` directory is not consistent with `/composer.json`, checker throws an Exception.
 
-![Exception from Checker](https://cdn.jakub-boucek.cz/screenshot/190703-jptvw.png)
+![Exception from Checker](https://cdn.jakub-boucek.cz/screenshot/201014-php-composer-consistency-exception.png)
 
 ## Usage
 
