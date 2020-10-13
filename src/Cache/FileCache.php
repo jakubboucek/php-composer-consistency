@@ -60,7 +60,7 @@ class FileCache
     }
 
     /**
-     * @param mixed  $key
+     * @param mixed $key
      * @return string
      */
     private function getCacheFile($key): string

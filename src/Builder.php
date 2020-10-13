@@ -83,7 +83,7 @@ class Builder
      * - `int`: Severity mode: `E_USER_ERROR` | `E_USER_WARNING` | `E_USER_NOTICE` | `E_USER_DEPRECATED`
      *
      * @param int $errorMode
-     * @return $this
+     * @return self
      */
     public function errorMode(int $errorMode = E_USER_ERROR): self
     {

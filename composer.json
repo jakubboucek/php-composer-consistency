@@ -27,7 +27,7 @@
         "phpstan": "phpstan analyze src --level 6",
         "ecs": "ecs check src --set psr12",
         "ecs-fix": "ecs check src --set psr12 --fix",
-        "tests": "tester tests"
+        "tester": "tester tests"
     },
     "replace": {
         "jakubboucek/composer-vendor-checker": "self.version"

@@ -19,7 +19,7 @@ jobs:
             run: composer ecs
 
           - name: Unit tests
-            run: composer tests
+            run: composer tester
 
     name: ${{ matrix.actions.name }}
     runs-on: ubuntu-latest

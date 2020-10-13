@@ -1,3 +1,5 @@
 /composer.lock
-/vendor/
-/tests/output/
+/vendor
+/tests/output
+/tests/lock
+/tests/temp
