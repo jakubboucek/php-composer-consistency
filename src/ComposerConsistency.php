@@ -176,13 +176,15 @@ class ComposerConsistency
 
         $installed = [];
 
-        foreach ($data as $package) {
+        // Composer v1 vs v2
+        $packages = $data['packages'] ?? $data;
+
+        foreach ($packages as $package) {
             $installed[$package['name']] = $package['version'];
         }
 
         return $installed;
     }
-
 
     /**
      * @return array<array>
